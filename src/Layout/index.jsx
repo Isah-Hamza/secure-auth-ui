@@ -7,10 +7,15 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 const Layout = ({ children }) => {
   const location = useLocation().pathname.split("/");
-
   const [activeTab, setActiveTab] = useState("");
 
+  const name = window.localStorage.getItem("user-name");
+  const occupation = window.localStorage.getItem("occupation");
+
   const handleLogout = () => {
+    window.localStorage.removeItem("user-name");
+    window.localStorage.removeItem("user-id");
+    window.localStorage.removeItem("occupation");
     navigate("/login");
   };
 
@@ -56,8 +61,12 @@ const Layout = ({ children }) => {
             <img className="w-full" src={avatar} alt="avatar" />
           </div>
           <div className="text-center flex flex-col mt-2">
-            <span className="text-lg font-medium">Isah Hamza </span>
-            <span className="-mt-2 opacity-60">student</span>
+            <span className="text-lg font-medium">
+              {name || "Unauthenticated"}{" "}
+            </span>
+            <span className="-mt-2 opacity-60 lowercase">
+              {occupation || "user"}
+            </span>
           </div>
           <div className="mt-10">
             <ul className="flex flex-col">
